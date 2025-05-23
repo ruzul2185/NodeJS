@@ -57,10 +57,11 @@ async function deleteStudent(req, res, next){
     const userList = await User.find();
     console.log(output);
     // res.status(200).send(JSON.stringify(output));
-    res.render('students',{
-        title: 'Student List',
-        users: userList,
-    })
+    // res.render('students',{
+    //     title: 'Student List',
+    //     users: userList,
+    // })
+    res.redirect('/students/');
 }
 
 module.exports = {
