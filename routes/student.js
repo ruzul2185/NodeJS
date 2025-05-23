@@ -6,12 +6,12 @@ var router = express.Router();
 
 var student = require('../controller/student');
 
-router.get('/listStudent', student.getData);
+router.get('/', student.getData);
 
 router.post('/addStudent', student.addStudent);
 
 router.put('/addStudent',student.editStudent);
 
-router.delete('/deleteStudent',student.deleteStudent);
+router.post('/deleteStudent',student.deleteStudent);
 
 module.exports = router;

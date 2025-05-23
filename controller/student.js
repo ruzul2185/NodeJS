@@ -1,4 +1,5 @@
 var User = require('./../model/User');
+var mongoose = require('mongoose')
 var bcrypt = require('bcrypt');
 
 var saltRounds = 10;
@@ -6,11 +7,18 @@ const myPlaintextPassword = 's0/\/\P4$$w0rD';
 
 
 async function getData(req, res, next){
+    try {
+        const userList = await User.find();
+        console.log(userList);
 
-    const userList = await User.find();
-    console.log(userList)
-    ///response " added to the database!"
-    res.render('student',{title:JSON.stringify(userList)});//view
+        // Optionally, log or flash message like "Added to the database!"
+        res.render('students', {
+            title: 'Student List',
+            users: userList
+        });
+    } catch (error) {
+        next(error); // Passes error to error-handling middleware
+    }
 }
 
 async function addStudent(req, res, next){
@@ -42,10 +50,17 @@ async function editStudent(req, res, next){
 }
 
 async function deleteStudent(req, res, next){
-    const { id } = req.body;
-    const output = await User.deleteOne({_id:id});
+    const id = req.query._id;
+    console.log(id)
+    const _id = new mongoose.Types.ObjectId(id)
+    const output = await User.deleteOne({_id});
+    const userList = await User.find();
     console.log(output);
-    res.status(200).send(JSON.stringify(output));
+    // res.status(200).send(JSON.stringify(output));
+    res.render('students',{
+        title: 'Student List',
+        users: userList,
+    })
 }
 
 module.exports = {

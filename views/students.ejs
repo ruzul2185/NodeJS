@@ -1,0 +1,12 @@
+<h1><%= title %></h1>
+
+<% users.forEach(function(user) { %>
+    <h3>id: <%=user._id%></h3>
+    <h3>Username: <%= user.username %></h3>
+    <h3>Email: <%= user.email %></h3>
+    <form action="/students/deleteStudent/?_id=<%= user._id %>" method="POST" style="display:inline;">
+            <button type="submit">Delete</button>
+        </form>
+<% }); %>
+    
+ 
